@@ -1,6 +1,23 @@
 import React, { Component } from 'react';
 
 class Form extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      name : "",
+      lat : "",
+      lng : ""
+    }
+  }
+
+  saveLocation(data) {
+    fetch('http://localhost:3000/locations', {
+      method:'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({data})
+    })
+  }
+  
   submitForm(e, data) {
     e.preventDefault();
     this.props.saveLocation(data);
@@ -24,7 +41,7 @@ class Form extends Component {
           />
         </label>
         <label>
-          Lon
+          Long
           <input
             ref={(input) => { this.lng = input }}
             type="text"/>
