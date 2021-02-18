@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "..\\FaceFinder-API"
+		},
+		{
+			"path": "..\\FaceFinder"
 		}
 	],
 	"settings": {}

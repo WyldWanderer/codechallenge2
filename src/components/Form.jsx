@@ -10,17 +10,40 @@ class Form extends Component {
     }
   }
 
-  saveLocation(data) {
-    fetch('http://localhost:3000/locations', {
-      method:'post',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({data})
-    })
+  /*onNameChange = (event) => {
+    this.setState({name : event.target.value})
   }
-  
+
+  onLatChange = (event) => {
+    this.setState({lat : event.target.value})
+  }
+
+  onLngChange = (event) => {
+    this.setState({lng : event.target.value})
+  }
+
+  onLocationSubmit = () => {
+    fetch("http://localhost:3000/locations", {
+      method: "post",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        name : this.state.name,
+        lat : this.state.lat,
+        lng : this.state.lng
+      })
+    })
+      .then(response => response.json("Location Sent"))
+  }*/
+
   submitForm(e, data) {
     e.preventDefault();
     this.props.saveLocation(data);
+    fetch("http://localhost:3000/locations", {
+      method: "post",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({data})
+    })
+      .then(response => response.json("Location Sent"))
   }
 
   render() {
@@ -44,7 +67,8 @@ class Form extends Component {
           Long
           <input
             ref={(input) => { this.lng = input }}
-            type="text"/>
+            type="text"
+            />
         </label>
         <button
           type="submit"
