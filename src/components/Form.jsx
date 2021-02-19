@@ -1,49 +1,24 @@
 import React, { Component } from 'react';
 
 class Form extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      name : "",
-      lat : "",
-      lng : ""
-    }
+  state = {
+    errorMessage: ""
   }
-
-  /*onNameChange = (event) => {
-    this.setState({name : event.target.value})
-  }
-
-  onLatChange = (event) => {
-    this.setState({lat : event.target.value})
-  }
-
-  onLngChange = (event) => {
-    this.setState({lng : event.target.value})
-  }
-
-  onLocationSubmit = () => {
-    fetch("http://localhost:3000/locations", {
-      method: "post",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        name : this.state.name,
-        lat : this.state.lat,
-        lng : this.state.lng
-      })
-    })
-      .then(response => response.json("Location Sent"))
-  }*/
 
   submitForm(e, data) {
     e.preventDefault();
-    this.props.saveLocation(data);
-    fetch("http://localhost:3000/locations", {
-      method: "post",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({data})
-    })
-      .then(response => response.json("Location Sent"))
+    if (Math.abs(data.lat) <= 90 && Math.abs(data.lng) <= 180) {
+      this.props.saveLocation(data);
+      fetch("http://localhost:3000/locations", {
+        method: "post",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+      })
+        .then(response => response.json("Location Sent"))
+    }
+    else{
+      this.setState({errorMessage : "Your latitude or longitude are invalid, please check the coordinates and try again"})
+    }
   }
 
   render() {
@@ -80,6 +55,9 @@ class Form extends Component {
         >
             Save
         </button>
+        <label>
+          <h6>{this.state.errorMessage}</h6>
+        </label>
       </form>
     );
   }
