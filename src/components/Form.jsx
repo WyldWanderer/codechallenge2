@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Locations from '../reducers/LocationsReducer';
 
 class Form extends Component {
   state = {
@@ -6,8 +7,8 @@ class Form extends Component {
   }
 
   submitForm(e, data) {
-    e.preventDefault();
-    if (Math.abs(data.lat) <= 90 && Math.abs(data.lng) <= 180) {
+    //e.preventDefault(); I don't know Redux or Reducers that well so this is commented out to allow an automatic refresh so the location dot shows on the map
+    if (Math.abs(data.lat) <= 90 && Math.abs(data.lng) <= 180 && data.name.length >= 1) {
       this.props.saveLocation(data);
       fetch("http://localhost:3000/locations", {
         method: "post",
@@ -15,11 +16,12 @@ class Form extends Component {
         body: JSON.stringify(data)
       })
         .then(response => response.json("Location Sent"))
+        .catch(response => response.json("There was a problem sending the location to the server"))
     }
-    else{
-      this.setState({errorMessage : "Your latitude or longitude are invalid, please check the coordinates and try again"})
+    else {
+      this.setState({errorMessage : "One of your inputs are invalid, please ensure a name is entered and the coordinates are correct."})
     }
-  }
+  };
 
   render() {
     return (
