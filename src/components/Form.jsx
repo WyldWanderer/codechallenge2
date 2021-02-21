@@ -5,22 +5,12 @@ class Form extends Component {
   state = {
     errorMessage: ""
   }
-
+  
   submitForm(e, data) {
-    //e.preventDefault(); I don't know Redux or Reducers that well so this is commented out to allow an automatic refresh so the location dot shows on the map
-
-    //input validation logic
+    e.preventDefault(); 
+  //input validation logic
     if (Math.abs(data.lat) <= 90 && Math.abs(data.lng) <= 180 && data.name.length >= 1) {
-      this.props.saveLocation(data);
-      
-    //post data to server, response messages in case of validation error or server communication success/failure
-      fetch("http://localhost:3000/locations", {
-        method: "post",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(data)
-      })
-        .then(response => response.json("Location Sent"))
-        .catch(response => response.json("There was a problem sending the location to the server"))
+      this.props.saveLocation(data)
     }
     else {
       this.setState({errorMessage : "One of your inputs are invalid, please ensure a name is entered and the coordinates are correct."})
