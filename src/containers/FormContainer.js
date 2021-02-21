@@ -2,13 +2,8 @@ import { connect } from 'react-redux'
 import Form from '../components/Form'
 
 const mapStateToProps = (state) => {
-    
-  return {
-      name: state.name,
-      lat: state.lat,
-      lng: state.lng
-    };
-};
+  return {locations: state.Locations.data}
+  };
 
 const mapDispatchToProps = (dispatch) => {
   return {
