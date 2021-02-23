@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 
 class Form extends Component {
   //added state for error message updating
-  state = {
-    errorMessage: ""
-  }
+    state = {
+      data: [],
+      locationsLength: 3,
+      errorMessage: ""
+    }
   
   submitForm(e, data) {
     e.preventDefault(); 
