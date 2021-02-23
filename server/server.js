@@ -32,6 +32,18 @@ app.locals.locations = initialLocations;
 
 app.get('/locations', (req, res) => res.send({ locations: app.locals.locations }));
 
+app.post('/locations', (req, res) => {
+    const { name, lat, lng } = req.body;
+    app.locals.idIndex ++;
+    app.locals.locations.push({
+      id: "id" + (app.locals.idIndex), 
+      name: name, 
+      lat: lat, 
+      lng: lng
+    })
+    res.json(app.locals.locations[app.locals.locations.length-1]);
+})
+
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 app.get('/', (req, res) => {

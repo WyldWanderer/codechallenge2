@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\FaceFinder-API"
+		},
+		{
+			"path": "..\\FaceFinder"
+		}
+	],
+	"settings": {}
+}

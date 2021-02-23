@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 import Form from '../components/Form'
 
 const mapStateToProps = (state) => {
-  return {};
-};
+  return {data: state.Locations.data}
+  };
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'SAVE_LOCATION',
         data: location,
-      });
+      })
     },
   };
 };

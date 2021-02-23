@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
 
 class Form extends Component {
+  //added state for error message updating
+    state = {
+      data: [],
+      locationsLength: 3,
+      errorMessage: ""
+    }
+  
   submitForm(e, data) {
-    e.preventDefault();
-    this.props.saveLocation(data);
-  }
+    e.preventDefault(); 
+  //input validation logic
+    if (Math.abs(data.lat) <= 90 && Math.abs(data.lng) <= 180 && data.name.length >= 1) {
+      this.props.saveLocation(data)
+    }
+    else {
+      this.setState({errorMessage : "One of your inputs are invalid, please ensure a name is entered and the coordinates are correct."})
+    }
+  };
 
   render() {
     return (
@@ -24,10 +37,11 @@ class Form extends Component {
           />
         </label>
         <label>
-          Lon
+          Long
           <input
             ref={(input) => { this.lng = input }}
-            type="text"/>
+            type="text"
+            />
         </label>
         <button
           type="submit"
@@ -39,6 +53,9 @@ class Form extends Component {
         >
             Save
         </button>
+        <label>
+          <h6>{this.state.errorMessage}</h6>
+        </label>
       </form>
     );
   }
